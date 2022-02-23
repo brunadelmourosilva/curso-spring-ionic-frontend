@@ -25,7 +25,7 @@ export class AuthService{
     }
 
     successfulLogin(authorizationValue : string) {
-        let tok = authorizationValue.substring(7);
+        let tok = authorizationValue;
         
         let user : LocalUser = {
             token : tok,
