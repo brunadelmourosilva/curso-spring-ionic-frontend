@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CityDTO } from '../../models/city.dto';
 import { StateDTO } from '../../models/state.dto';
 import { CityService } from '../../services/domain/city.service';
+import { CustomerService } from '../../services/domain/customer.service';
 import { StateService } from '../../services/domain/state.service';
 
 /**
@@ -29,12 +30,14 @@ export class SignupPage {
     public navParams: NavParams,
     public formBuilder : FormBuilder,
     public cityService: CityService,
-    public stateService: StateService) {
+    public stateService: StateService,
+    public customerService : CustomerService,
+    public alertCtrl : AlertController) {
 
       this.formGroup = this.formBuilder.group({
         name: ['Joaquim', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
         email: ['joaquim@gmail.com', [Validators.required, Validators.email]],
-        type : ['1', [Validators.required]],
+        customerType : ['1', [Validators.required]],
         cpfOrCnpj : ['06134596280', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
         password : ['123', [Validators.required]],
         patio : ['Rua Via', [Validators.required]],
@@ -72,7 +75,29 @@ export class SignupPage {
   }
 
   signupUser() {
-    console.log("enviou o form");
+    console.log(this.formGroup.value);
+    this.customerService.insert(this.formGroup.value)
+      .subscribe(response => {
+        this.showInsertOk();
+      },
+      error => {});
   }
 
+  showInsertOk() {
+    let alert = this.alertCtrl.create({
+      title: 'Sucesso!',
+      message: 'Cadastro efetuado com sucesso',
+      enableBackdropDismiss: false,
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.navCtrl.pop();
+          }
+        }
+      ]
+    });
+    alert.present();
+    
+  }
 }
