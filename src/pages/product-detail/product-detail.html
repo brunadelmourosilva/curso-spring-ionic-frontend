@@ -6,6 +6,11 @@
 -->
 <ion-header>
   <ion-navbar>
+
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+  </button>
+  
     <ion-title>ProductDetail</ion-title>
   </ion-navbar>
 </ion-header>
@@ -23,5 +28,5 @@
     </ion-card-content>
   </ion-card>
 
-  <button ion-button block outline>Adicionar ao carrinho</button>
+  <button ion-button block outline (click) = "addToCart(item)">Adicionar ao carrinho</button>
 </ion-content>
