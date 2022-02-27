@@ -17,7 +17,7 @@
 <ion-content padding>
   
   <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="showProducts()">
+    <button ion-item *ngFor="let item of items" (click)="showProducts(item.id)">
 
       <ion-thumbnail item-start>
 
