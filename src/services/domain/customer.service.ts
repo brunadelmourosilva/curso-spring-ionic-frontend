@@ -13,9 +13,9 @@ export class CustomerService {
                 public storange: StorangeService) {
     }
 
-    findByEmail(email: string) : Observable<CustomerDTO> {
+    findByEmail(email: string) {
 
-        return this.http.get<CustomerDTO>(
+        return this.http.get(
             `${API_CONFIG.baseUrl}/customers/email?value=${email}`);
     }
 
